@@ -1,0 +1,58 @@
+<div class="jumbotron text-center">
+    <table class="table table-bordered">
+        <thead>
+            <th colspan="4" style="text-align: center">Información del Autor</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Nombre:</strong></td>
+                <td>{{autor.nombre}}</td>
+                <td><strong>Apellido:</strong></td>
+                <td>{{autor.apellido}}</td>
+            </tr>
+            <tr>
+                <td><strong>Email:</strong></td>
+                <td>{{autor.email}}</td>
+                <td><strong>Cédula:</strong></td>
+                <td>{{autor.cedula}}</td>
+            </tr>
+            <tr>
+                <td><strong>Tipo Docente:</strong></td>
+                <td>{{autor.tipo_docente}}</td>
+                <td><strong>Google URL:</strong></td>
+                <td>{{autor.scholar_url}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="page-header">
+    <h3>Posibles Perfiles</h3>
+</div>
+
+<div ng-if="!respuesta" class="alert alert-danger" role="alert">
+    <strong>{{mensaje}}</strong>
+</div>
+
+<table ng-if="respuesta" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Cédula</th>
+                    <th>Google Scholar URL</th>
+                    <th>Coincidencia</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="url in urlsList| orderBy:'-coincidencia' |limitTo:4">
+                    <td>{{$index+1}}</td>
+                    <td>{{url.cedula}}</td>
+                    <td><a href="{{url.scholar_id}}" target="_blank">{{url.scholar_id}}</a></td>
+                    <td>
+                      <div class="progress">
+                          <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{url.coincidencia}}" aria-valuemin="0" aria-valuemax="100"
+                              style="width: {{url.coincidencia}}%"><span class="">{{url.coincidencia}}% Coincidencia</span></div>
+                      </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
